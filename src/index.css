@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --primary: 59 130 246; /* blue-500 */
+    --primary-dark: 29 78 216; /* blue-700 */
+    --secondary: 139 92 246; /* violet-500 */
+    --accent: 34 197 94; /* green-500 */
+    
+    /* Neutral Colors */
+    --background: 255 255 255;
+    --surface: 248 250 252; /* gray-50 */
+    --surface-dark: 15 23 42; /* slate-900 */
+    --text: 15 23 42; /* slate-900 */
+    --text-muted: 100 116 139; /* slate-500 */
+    --border: 226 232 240; /* slate-200 */
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, rgb(59 130 246) 0%, rgb(139 92 246) 100%);
+    --gradient-dark: linear-gradient(135deg, rgb(15 23 42) 0%, rgb(30 41 59) 50%, rgb(51 65 85) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    
+    /* Spacing */
+    --section-padding: 6rem;
+    --container-padding: 1.5rem;
+    --border-radius: 0.75rem;
+    --border-radius-lg: 1rem;
+  }
+}
+
+@layer components {
+  .theme-gradient {
+    background: var(--gradient-primary);
+  }
+  
+  .theme-gradient-dark {
+    background: var(--gradient-dark);
+  }
+  
+  .theme-shadow {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .theme-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+  
+  .theme-section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+  }
+}
