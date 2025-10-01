@@ -52,12 +52,12 @@ const DigitalDesign = () => {
               Our design solutions combine aesthetics with functionality for maximum impact.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center theme-animate-fade-in" style={{animationDelay: '0.4s'}}>
-              <button className="theme-button theme-button-primary px-8 py-4 text-lg">
+              <a href="/contact" className="theme-button theme-button-primary px-8 py-4 text-lg">
                 Start Design Project
-              </button>
-              <button className="theme-button theme-button-secondary px-8 py-4 text-lg">
+              </a>
+              <a href="/portfolio" className="theme-button theme-button-secondary px-8 py-4 text-lg">
                 View Design Portfolio
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -194,13 +194,13 @@ const DigitalDesign = () => {
             Let's create exceptional digital experiences that engage users and drive business growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="theme-button theme-button-primary px-8 py-4 text-lg flex items-center space-x-2">
+            <a href="/contact" className="theme-button theme-button-primary px-8 py-4 text-lg flex items-center space-x-2">
               <span>Start Design Project</span>
               <ArrowRight className="w-5 h-5" />
-            </button>
-            <button className="theme-button theme-button-secondary px-8 py-4 text-lg">
+            </a>
+            <a href="/blog" className="theme-button theme-button-secondary px-8 py-4 text-lg">
               Download Design Guide
-            </button>
+            </a>
           </div>
         </div>
       </section>
