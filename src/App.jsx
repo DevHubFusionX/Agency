@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { trackPageView } from './utils/analytics'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import LoadingScreen from './components/common/LoadingScreen'
@@ -23,6 +24,10 @@ import './App.css'
 
 const AnimatedRoutes = () => {
   const location = useLocation()
+  
+  useEffect(() => {
+    trackPageView(location.pathname + location.search)
+  }, [location])
   
   return (
     <AnimatePresence mode="wait">

@@ -4,6 +4,7 @@ import './index.css'
 import './theme.css'
 import App from './App.jsx'
 import { registerSW } from './utils/serviceWorker'
+import { initGA } from './utils/analytics'
 
 const rootElement = document.getElementById('root')
 if (!rootElement) {
@@ -15,6 +16,9 @@ createRoot(rootElement).render(
     <App />
   </StrictMode>,
 )
+
+// Initialize Google Analytics
+initGA()
 
 // Register service worker
 registerSW()
