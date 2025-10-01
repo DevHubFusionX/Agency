@@ -113,22 +113,7 @@ const Services = () => {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center theme-animate-fade-in hidden md:block" style={{animationDelay: '600ms'}}>
-          <div className="theme-gradient p-12 text-white" style={{borderRadius: 'var(--radius-3xl)'}}>
-            <h3 className="text-3xl font-bold mb-4" style={{fontFamily: 'var(--font-sans)'}}>
-              Ready to Transform Your Business?
-            </h3>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Let's discuss how our enterprise solutions can accelerate your growth 
-              and deliver measurable results for your organization.
-            </p>
-            <a href="/contact" className="theme-button bg-white text-blue-600 hover:bg-gray-100 theme-shadow-xl flex items-center space-x-2" style={{display: 'inline-flex'}}>
-              <span>Schedule Strategy Call</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
+
       </div>
     </section>
   )

@@ -5,6 +5,7 @@ import { Zap, Home, Code, Smartphone, Palette, Users, Award, Phone, ArrowRight, 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [aboutOpen, setAboutOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -67,14 +68,32 @@ const Header = () => {
                 <Award className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
                 <span>Portfolio</span>
               </Link>
-              <Link to="/about" className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
-                <Users className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
-                <span>About</span>
-              </Link>
-              <Link to="/blog" className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
-                <BookOpen className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
-                <span>Blog</span>
-              </Link>
+              {/* About Dropdown */}
+              <div className="relative" onMouseEnter={() => setAboutOpen(true)} onMouseLeave={() => setAboutOpen(false)}>
+                <button className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
+                  <Users className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
+                  <span>About</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ${aboutOpen ? 'rotate-180' : ''}`} style={{transitionDuration: 'var(--duration-normal)'}} />
+                </button>
+                
+                <div className={`absolute top-full left-0 w-64 theme-glass theme-shadow-xl transition-all duration-300 ease-out transform origin-top ${aboutOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`} style={{borderRadius: 'var(--radius-2xl)', zIndex: 50, paddingTop: '8px', marginTop: '-8px'}}>
+                  <div className="p-2" style={{marginTop: '8px'}}>
+                    <Link to="/about" className="flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)'}}>
+                      <Building className="w-4 h-4" />
+                      <span>Our Company</span>
+                    </Link>
+                    <a href="#team" className="flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)'}}>
+                      <Users className="w-4 h-4" />
+                      <span>Our Team</span>
+                    </a>
+                    <a href="#process" className="flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)'}}>
+                      <Zap className="w-4 h-4" />
+                      <span>Our Process</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <Link to="/pricing" className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
                 <Calculator className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
                 <span>Pricing</span>
@@ -146,14 +165,32 @@ const Header = () => {
                 <Award className="w-5 h-5" />
                 <span>Portfolio</span>
               </Link>
-              <Link to="/about" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
-                <Users className="w-5 h-5" />
-                <span>About</span>
-              </Link>
-              <Link to="/blog" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
-                <BookOpen className="w-5 h-5" />
-                <span>Blog & Insights</span>
-              </Link>
+              {/* About Dropdown */}
+              <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+                <button className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all w-full" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
+                  <Users className="w-5 h-5" />
+                  <span>About</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ml-auto ${servicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                <div className={`absolute top-full left-0 mt-2 w-64 theme-glass theme-shadow-xl transition-all duration-300 ease-out transform origin-top ${servicesOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`} style={{borderRadius: 'var(--radius-2xl)', zIndex: 'var(--z-dropdown)'}}>
+                  <div className="p-2">
+                    <Link to="/about" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)'}}>
+                      <Building className="w-4 h-4" />
+                      <span>Our Company</span>
+                    </Link>
+                    <a href="#team" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)'}}>
+                      <Users className="w-4 h-4" />
+                      <span>Our Team</span>
+                    </a>
+                    <a href="#process" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)'}}>
+                      <Zap className="w-4 h-4" />
+                      <span>Our Process</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <Link to="/pricing" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
                 <Calculator className="w-5 h-5" />
                 <span>Pricing Calculator</span>

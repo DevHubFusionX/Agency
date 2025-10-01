@@ -158,8 +158,8 @@ const EnterpriseDevelopment = () => {
               <span>Schedule Consultation</span>
               <ArrowRight className="w-5 h-5" />
             </a>
-            <a href="/blog" className="theme-button theme-button-secondary px-8 py-4 text-lg">
-              Download Enterprise Guide
+            <a href="/contact" className="theme-button theme-button-secondary px-8 py-4 text-lg">
+              Get Free Quote
             </a>
           </div>
         </div>
