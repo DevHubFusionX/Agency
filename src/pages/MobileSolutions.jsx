@@ -188,8 +188,8 @@ const MobileSolutions = () => {
               <span>Start Mobile Project</span>
               <ArrowRight className="w-5 h-5" />
             </a>
-            <a href="/blog" className="theme-button theme-button-secondary px-8 py-4 text-lg">
-              Download Mobile Guide
+            <a href="/contact" className="theme-button theme-button-secondary px-8 py-4 text-lg">
+              Get Free Quote
             </a>
           </div>
         </div>

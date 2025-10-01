@@ -52,12 +52,12 @@ const Hero = () => {
         <div className="text-center max-w-6xl mx-auto">
           {/* Hero Headline */}
           <div className="mb-12 theme-animate-fade-in">
-            <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-6 text-white" style={{fontFamily: 'var(--font-sans)'}}>
-              Engineering
+            <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-6 text-white" style={{fontFamily: 'Space Grotesk, system-ui, sans-serif'}}>
+              Building
               <span className="block theme-text-gradient">
-                Digital Innovation
+                Digital Solutions
               </span>
-              At Enterprise Scale
+              That Scale
             </h1>
             
             <p className="text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto mb-8 text-gray-300">
