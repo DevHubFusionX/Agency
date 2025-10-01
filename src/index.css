@@ -1,6 +1,19 @@
 @import 'tailwindcss';
 
 @layer base {
+  body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+  }
+
+  p, span {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
   :root {
     /* Brand Colors */
     --primary: 59 130 246; /* blue-500 */

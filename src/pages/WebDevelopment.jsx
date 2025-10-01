@@ -71,8 +71,8 @@ const WebDevelopment = () => {
             <p className="text-gray-400 text-lg">Comprehensive web solutions for modern businesses</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <div key={index} className="theme-card p-6 text-center group hover:scale-105 transition-all">
+            {services.map((service) => (
+              <div key={service.title} className="theme-card p-6 text-center group hover:scale-105 transition-all">
                 <div className="w-16 h-16 theme-gradient mx-auto mb-6 flex items-center justify-center" style={{borderRadius: 'var(--radius-2xl)'}}>
                   <service.icon className="w-8 h-8 text-white" />
                 </div>
@@ -112,8 +112,8 @@ const WebDevelopment = () => {
                 and user experience that drives business success and user engagement.
               </p>
               <div className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center space-x-3">
+                {benefits.map((benefit) => (
+                  <div key={benefit} className="flex items-center space-x-3">
                     <CheckCircle className="w-6 h-6 text-emerald-400 flex-shrink-0" />
                     <span className="text-gray-300">{benefit}</span>
                   </div>

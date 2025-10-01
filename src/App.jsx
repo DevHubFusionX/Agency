@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer'
 import LoadingScreen from './components/common/LoadingScreen'
 import ScrollToTop from './components/common/ScrollToTop'
 import PageTransition from './components/common/PageTransition'
+import GoogleAnalytics from './components/analytics/GoogleAnalytics'
 import Home from './pages/Home'
 import About from './pages/About'
 import Portfolio from './pages/Portfolio'
@@ -13,6 +14,11 @@ import EnterpriseDevelopment from './pages/EnterpriseDevelopment'
 import MobileSolutions from './pages/MobileSolutions'
 import DigitalDesign from './pages/DigitalDesign'
 import WebDevelopment from './pages/WebDevelopment'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
+import PricingCalculatorPage from './pages/PricingCalculator'
+import Blog from './pages/Blog'
+import ContactPage from './pages/Contact'
 import './App.css'
 
 const AnimatedRoutes = () => {
@@ -28,6 +34,11 @@ const AnimatedRoutes = () => {
         <Route path="/web-development" element={<PageTransition><WebDevelopment /></PageTransition>} />
         <Route path="/mobile-solutions" element={<PageTransition><MobileSolutions /></PageTransition>} />
         <Route path="/digital-design" element={<PageTransition><DigitalDesign /></PageTransition>} />
+        <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+        <Route path="/terms" element={<PageTransition><TermsOfService /></PageTransition>} />
+        <Route path="/pricing" element={<PageTransition><PricingCalculatorPage /></PageTransition>} />
+        <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   )
@@ -46,6 +57,7 @@ function App() {
 
   return (
     <Router>
+      <GoogleAnalytics trackingId={import.meta.env.VITE_GA_TRACKING_ID} />
       <ScrollToTop />
       <Header />
       <main>

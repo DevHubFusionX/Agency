@@ -165,7 +165,7 @@ const Portfolio = () => {
               </div>
 
               {/* CTA */}
-              <a href="#contact" className="inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold group/link transition-colors text-sm" style={{transitionDuration: 'var(--duration-normal)'}}>
+              <a href="/portfolio" className="inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold group/link transition-colors text-sm" style={{transitionDuration: 'var(--duration-normal)'}}>
                 <span>View Case Study</span>
                 <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
               </a>
@@ -184,7 +184,7 @@ const Portfolio = () => {
               Let's discuss how we can transform your vision into a market-leading digital product 
               that drives real business results.
             </p>
-            <a href="#contact" className="theme-button theme-button-primary theme-shadow-xl flex items-center space-x-2" style={{display: 'inline-flex'}}>
+            <a href="/contact" className="theme-button theme-button-primary theme-shadow-xl flex items-center space-x-2" style={{display: 'inline-flex'}}>
               <span>Start Your Project</span>
               <ArrowRight className="w-5 h-5" />
             </a>

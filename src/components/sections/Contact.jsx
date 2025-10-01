@@ -1,27 +1,61 @@
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, ArrowRight, Calendar, MessageSquare } from 'lucide-react'
+import { useFormValidation } from '../../hooks/useFormValidation'
+import { submitContactForm } from '../../services/contactService'
+import { CONTACT_VALIDATION_RULES, CONTACT_INITIAL_VALUES } from '../../utils/constants'
+import FormField from '../ui/FormField'
+import LoadingSpinner from '../ui/LoadingSpinner'
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    project: '',
-    budget: '',
-    timeline: '',
-    message: ''
-  })
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' })
+  
+  const {
+    values,
+    errors,
+    isSubmitting,
+    setIsSubmitting,
+    handleChange,
+    validateAll,
+    reset
+  } = useFormValidation(CONTACT_INITIAL_VALUES, CONTACT_VALIDATION_RULES)
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
+    
+    try {
+      if (!validateAll()) {
+        setSubmitStatus({ type: 'error', message: 'Please fix the errors above.' })
+        return
+      }
+
+      setIsSubmitting(true)
+      setSubmitStatus({ type: '', message: '' })
+
+      const result = await submitContactForm(values)
+      console.info('Contact form submitted successfully:', {
+        timestamp: new Date().toISOString(),
+        projectType: values.project
+      })
+      setSubmitStatus({ type: 'success', message: result.message })
+      reset()
+    } catch (error) {
+      console.error('Contact form submission failed:', {
+        error: error.message,
+        timestamp: new Date().toISOString()
+      })
+      
+      // Handle specific error types
+      let errorMessage = 'Something went wrong. Please try again.'
+      if (error.name === 'TypeError' || error.message.includes('fetch')) {
+        errorMessage = 'Network error. Please check your connection and try again.'
+      } else if (error.message) {
+        errorMessage = error.message
+      }
+      
+      setSubmitStatus({ type: 'error', message: errorMessage })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -55,12 +89,35 @@ const Contact = () => {
     }
   ]
 
+  const projectOptions = [
+    { value: 'web-app', label: 'Web Application' },
+    { value: 'mobile-app', label: 'Mobile Application' },
+    { value: 'enterprise', label: 'Enterprise Solution' },
+    { value: 'ecommerce', label: 'E-commerce Platform' },
+    { value: 'saas', label: 'SaaS Product' },
+    { value: 'other', label: 'Other' }
+  ]
+
+  const budgetOptions = [
+    { value: '25k-50k', label: '$25k - $50k' },
+    { value: '50k-100k', label: '$50k - $100k' },
+    { value: '100k-250k', label: '$100k - $250k' },
+    { value: '250k+', label: '$250k+' }
+  ]
+
+  const timelineOptions = [
+    { value: 'asap', label: 'ASAP' },
+    { value: '1-3months', label: '1-3 months' },
+    { value: '3-6months', label: '3-6 months' },
+    { value: '6months+', label: '6+ months' }
+  ]
+
   return (
     <section id="contact" className="relative theme-section overflow-hidden text-white" style={{backgroundColor: 'var(--section-bg)'}}>
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-3xl" style={{borderRadius: 'var(--radius-full)'}}></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/5 blur-3xl" style={{borderRadius: 'var(--radius-full)'}}></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 blur-3xl" style={{borderRadius: 'var(--radius-full)'}}></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/5 blur-3xl" style={{borderRadius: 'var(--radius-full)'}}></div>
       </div>
 
       <div className="relative theme-container">
@@ -112,13 +169,13 @@ const Contact = () => {
                         <IconComponent className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-white mb-1 group-hover:text-emerald-300 transition-colors" style={{transitionDuration: 'var(--duration-normal)'}}>
+                        <h4 className="font-semibold text-white mb-1 group-hover:text-blue-300 transition-colors" style={{transitionDuration: 'var(--duration-normal)'}}>
                           {info.title}
                         </h4>
                         <div className="text-white font-medium mb-1">{info.details}</div>
                         <div className="text-sm text-gray-400">{info.subtitle}</div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" style={{transitionDuration: 'var(--duration-normal)'}} />
+                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" style={{transitionDuration: 'var(--duration-normal)'}} />
                     </div>
                   </a>
                 )
@@ -136,7 +193,7 @@ const Contact = () => {
                   "Post-launch optimization and continuous improvement"
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-emerald-200 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-blue-200 flex-shrink-0" />
                     <span className="text-white/90">{benefit}</span>
                   </div>
                 ))}
@@ -156,138 +213,104 @@ const Contact = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" 
-                    style={{borderRadius: 'var(--radius-xl)'}}
-                    placeholder="John Doe"
-                    required
-                  />
+              {submitStatus.message && (
+                <div className={`p-4 rounded-xl ${submitStatus.type === 'success' ? 'bg-green-500/20 text-green-300 border border-green-500/30' : 'bg-red-500/20 text-red-300 border border-red-500/30'}`}>
+                  {submitStatus.message}
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                    style={{borderRadius: 'var(--radius-xl)'}}
-                    placeholder="john@company.com"
-                    required
-                  />
-                </div>
-              </div>
+              )}
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <FormField
+                  label="Full Name"
+                  name="name"
+                  value={values.name}
                   onChange={handleChange}
-                  className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                  style={{borderRadius: 'var(--radius-xl)'}}
-                  placeholder="Your Company"
+                  error={errors.name}
+                  placeholder="John Doe"
+                  required
+                />
+                <FormField
+                  label="Email Address"
+                  name="email"
+                  type="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  error={errors.email}
+                  placeholder="john@company.com"
+                  required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Project Type *
-                </label>
-                <select
-                  name="project"
-                  value={formData.project}
-                  onChange={handleChange}
-                  className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                  style={{borderRadius: 'var(--radius-xl)'}}
-                  required
-                >
-                  <option value="">Select Project Type</option>
-                  <option value="web-app">Web Application</option>
-                  <option value="mobile-app">Mobile Application</option>
-                  <option value="enterprise">Enterprise Solution</option>
-                  <option value="ecommerce">E-commerce Platform</option>
-                  <option value="saas">SaaS Product</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
+              <FormField
+                label="Company Name"
+                name="company"
+                value={values.company}
+                onChange={handleChange}
+                placeholder="Your Company"
+              />
+
+              <FormField
+                label="Project Type"
+                name="project"
+                type="select"
+                value={values.project}
+                onChange={handleChange}
+                error={errors.project}
+                placeholder="Select Project Type"
+                options={projectOptions}
+                required
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Budget Range
-                  </label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                    style={{borderRadius: 'var(--radius-xl)'}}
-                  >
-                    <option value="">Select Budget</option>
-                    <option value="25k-50k">$25k - $50k</option>
-                    <option value="50k-100k">$50k - $100k</option>
-                    <option value="100k-250k">$100k - $250k</option>
-                    <option value="250k+">$250k+</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Timeline
-                  </label>
-                  <select
-                    name="timeline"
-                    value={formData.timeline}
-                    onChange={handleChange}
-                    className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                    style={{borderRadius: 'var(--radius-xl)'}}
-                  >
-                    <option value="">Select Timeline</option>
-                    <option value="asap">ASAP</option>
-                    <option value="1-3months">1-3 months</option>
-                    <option value="3-6months">3-6 months</option>
-                    <option value="6months+">6+ months</option>
-                  </select>
-                </div>
+                <FormField
+                  label="Budget Range"
+                  name="budget"
+                  type="select"
+                  value={values.budget}
+                  onChange={handleChange}
+                  placeholder="Select Budget"
+                  options={budgetOptions}
+                />
+                <FormField
+                  label="Timeline"
+                  name="timeline"
+                  type="select"
+                  value={values.timeline}
+                  onChange={handleChange}
+                  placeholder="Select Timeline"
+                  options={timelineOptions}
+                />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Project Details *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="5"
-                  className="w-full p-4 bg-slate-700 border border-gray-600 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
-                  style={{borderRadius: 'var(--radius-xl)'}}
-                  placeholder="Tell us about your project goals, target audience, key features, and any specific requirements..."
-                  required
-                ></textarea>
-              </div>
+              <FormField
+                label="Project Details"
+                name="message"
+                type="textarea"
+                value={values.message}
+                onChange={handleChange}
+                error={errors.message}
+                placeholder="Tell us about your project goals, target audience, key features, and any specific requirements..."
+                rows={5}
+                required
+              />
 
               <button
                 type="submit"
-                className="w-full theme-gradient text-white p-4 font-semibold text-lg hover:scale-105 transition-all theme-shadow-xl flex items-center justify-center space-x-2"
+                disabled={isSubmitting}
+                className="w-full theme-gradient text-white p-4 font-semibold text-lg hover:scale-105 transition-all theme-shadow-xl flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}
               >
-                <Send className="w-5 h-5" />
-                <span>Send Message</span>
+                {isSubmitting ? (
+                  <>
+                    <LoadingSpinner size="sm" className="text-white" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    <span>Send Message</span>
+                  </>
+                )}
               </button>
 
               <p className="text-sm text-gray-400 text-center">

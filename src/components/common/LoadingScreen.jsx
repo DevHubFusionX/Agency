@@ -6,7 +6,9 @@ const LoadingScreen = ({ onComplete }) => {
   const [isComplete, setIsComplete] = useState(false)
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    let timer
+    
+    timer = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(timer)
@@ -18,7 +20,11 @@ const LoadingScreen = ({ onComplete }) => {
       })
     }, 150)
 
-    return () => clearInterval(timer)
+    return () => {
+      if (timer) {
+        clearInterval(timer)
+      }
+    }
   }, [onComplete])
 
   return (

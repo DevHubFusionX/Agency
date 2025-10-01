@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Zap, Home, Code, Smartphone, Palette, Users, Award, Phone, ArrowRight, Menu, X, Building, Globe, ChevronDown } from 'lucide-react'
+import { Zap, Home, Code, Smartphone, Palette, Users, Award, Phone, ArrowRight, Menu, X, Building, Globe, ChevronDown, Calculator, BookOpen } from 'lucide-react'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,7 +35,7 @@ const Header = () => {
               
               {/* Services Dropdown */}
               <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-                <button className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover: transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
+                <button className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
                   <Code className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
                   <span>Services</span>
                   <ChevronDown className={`w-3 h-3 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} style={{transitionDuration: 'var(--duration-normal)'}} />
@@ -71,18 +71,26 @@ const Header = () => {
                 <Users className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
                 <span>About</span>
               </Link>
+              <Link to="/blog" className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
+                <BookOpen className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
+                <span>Blog</span>
+              </Link>
+              <Link to="/pricing" className="group flex items-center space-x-2 px-4 py-3 text-white/70 hover:text-emerald-300 hover:bg-white/10 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
+                <Calculator className="w-4 h-4 group-hover:scale-110 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
+                <span>Pricing</span>
+              </Link>
             </nav>
             
             {/* Desktop CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-3">
-              <a href="#contact" className="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-emerald-300 border border-white/20 hover:border-emerald-400 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
+              <Link to="/contact" className="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-emerald-300 border border-white/20 hover:border-emerald-400 transition-all whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', transitionDuration: 'var(--duration-normal)', fontSize: '0.875rem', fontWeight: '500'}}>
                 <Phone className="w-4 h-4" />
                 <span>Schedule Call</span>
-              </a>
-              <a href="#quote" className="group theme-button theme-button-primary flex items-center space-x-2 px-6 py-3 whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', fontSize: '0.875rem'}}>
-                <span>Start Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" style={{transitionDuration: 'var(--duration-normal)'}} />
-              </a>
+              </Link>
+              <Link to="/pricing" className="group theme-button theme-button-primary flex items-center space-x-2 px-6 py-3 whitespace-nowrap" style={{borderRadius: 'var(--radius-full)', fontSize: '0.875rem'}}>
+                <Calculator className="w-4 h-4" />
+                <span>Get Quote</span>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -142,6 +150,14 @@ const Header = () => {
                 <Users className="w-5 h-5" />
                 <span>About</span>
               </Link>
+              <Link to="/blog" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
+                <BookOpen className="w-5 h-5" />
+                <span>Blog & Insights</span>
+              </Link>
+              <Link to="/pricing" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
+                <Calculator className="w-5 h-5" />
+                <span>Pricing Calculator</span>
+              </Link>
               <a href="#team" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-4 text-white/80 hover:text-emerald-300 hover:bg-white/10 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
                 <Users className="w-5 h-5" />
                 <span>Leadership Team</span>
@@ -157,14 +173,14 @@ const Header = () => {
             </nav>
             
             <div className="mt-8 space-y-3">
-              <a href="#contact" onClick={() => setIsOpen(false)} className="flex items-center justify-center space-x-2 w-full p-4 text-white border border-white/20 hover:border-emerald-400 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
+              <Link to="/contact" onClick={() => setIsOpen(false)} className="flex items-center justify-center space-x-2 w-full p-4 text-white border border-white/20 hover:border-emerald-400 transition-all" style={{borderRadius: 'var(--radius-xl)', transitionDuration: 'var(--duration-normal)'}}>
                 <Phone className="w-5 h-5" />
                 <span>Schedule Consultation</span>
-              </a>
-              <a href="#quote" onClick={() => setIsOpen(false)} className="theme-button theme-button-primary w-full p-4 font-semibold flex items-center justify-center space-x-2" style={{borderRadius: 'var(--radius-xl)'}}>
-                <span>Start Enterprise Project</span>
-                <ArrowRight className="w-5 h-5" />
-              </a>
+              </Link>
+              <Link to="/pricing" onClick={() => setIsOpen(false)} className="theme-button theme-button-primary w-full p-4 font-semibold flex items-center justify-center space-x-2" style={{borderRadius: 'var(--radius-xl)'}}>
+                <Calculator className="w-5 h-5" />
+                <span>Get Quote</span>
+              </Link>
             </div>
 
             {/* Mobile Footer */}

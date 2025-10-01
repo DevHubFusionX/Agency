@@ -71,8 +71,8 @@ const MobileSolutions = () => {
             <p className="text-gray-400 text-lg">Comprehensive mobile development across all platforms</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {platforms.map((platform, index) => (
-              <div key={index} className="theme-card p-6 text-center group hover:scale-105 transition-all">
+            {platforms.map((platform) => (
+              <div key={platform.title} className="theme-card p-6 text-center group hover:scale-105 transition-all">
                 <div className="w-16 h-16 theme-gradient mx-auto mb-6 flex items-center justify-center" style={{borderRadius: 'var(--radius-2xl)'}}>
                   <platform.icon className="w-8 h-8 text-white" />
                 </div>
@@ -95,8 +95,8 @@ const MobileSolutions = () => {
                 and drive business growth through superior mobile experiences.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3">
+                {features.map((feature) => (
+                  <div key={feature} className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
                     <span className="text-gray-300 text-sm">{feature}</span>
                   </div>
